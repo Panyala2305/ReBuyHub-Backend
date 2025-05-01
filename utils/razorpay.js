@@ -1,9 +1,11 @@
 import Razorpay from "razorpay";
+import dotenv from "dotenv";
 
+dotenv.config(); 
 // Create an instance of Razorpay
 const instance = new Razorpay({
-  key_id: "rzp_test_QIsdIUEqBd65QW",
-  key_secret: "h0dXfwPTvDS9KQ6rpWA23GJn",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 export default instance;
