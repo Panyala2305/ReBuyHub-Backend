@@ -4,11 +4,13 @@ import cors from 'cors';
 import connectDB from './utils/db.js';
 import authRoutes from './routes/authRoutes.js';
 
+// Load environment variables
 dotenv.config();
 
+// Initialize Express app
 const app = express();
 
-// ✅ CORS configuration
+// CORS configuration
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT'],
@@ -16,16 +18,35 @@ app.use(cors({
   credentials: true
 }));
 
-// Body parser middleware
+// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Routes
+// Root route
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running successfully!");
+});
+
+// API routes
 app.use('/api', authRoutes);
 
-// MongoDB connection
-connectDB();
+// Catch-all for unknown routes
+app.use((req, res) => {
+  res.status(404).send("❌ Route not found");
+});
 
-// Server start
-const PORT = process.env.PORT;
+// Connect to MongoDB and start the server
+const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Failed to connect to database:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
