@@ -12,10 +12,11 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://re-buy-hub.vercel.app'], // Corrected the Vercel URL (no trailing slash)
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  origin: ['https://re-buy-hub.vercel.app'],  // Your Vercel frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allowing these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowing specific headers
+  credentials: true,  // This allows cookies to be sent if needed
+  preflightContinue: false,  // Don't continue to the next middleware after preflight response
 }));
 
 // Middleware to parse JSON bodies
