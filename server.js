@@ -12,12 +12,11 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://re-buy-hub.vercel.app/'], // include both
-  methods: ['GET', 'POST', 'PUT'],
+  origin: ['http://localhost:3000', 'https://re-buy-hub.vercel.app'], // Corrected the Vercel URL (no trailing slash)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
-
 
 // Middleware to parse JSON bodies
 app.use(express.json());
